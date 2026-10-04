@@ -1,0 +1,44 @@
+Task 1: Unification Queries
+
+1) ?- house = house.
+true.
+Explanation: Both terms are the same atom, so they unify.
+
+2) ?- house = abc.
+false.
+Explanation: house and abc are two different constants, and there is no variable to fill in.
+
+3) ?- edge(a,b) = edge(C,b).
+C = a.
+Explanation: Same functor (edge) and same number of arguments. b matches b, and C is instantiated to a.
+
+4) ?- edge(a,d) = edge(C,B).
+C = a,
+B = d.
+Explanation: Same functor and arity. C is instantiated to a and B to d.
+
+5) ?- edge(C,B) = edge(a,d).
+C = a,
+B = d.
+Explanation: Same as the previous query; the order of the two sides does not matter.
+
+6) ?- edge(A,f(g,h)) = edge(a,B).
+A = a,
+B = f(g, h).
+Explanation: A is instantiated to a, and B is instantiated to the whole structure f(g,h).
+
+7) ?- edge(A,A) = edge(b,c).
+false.
+Explanation: The same variable A would have to be both b and c, but b and c are different constants.
+
+8) ?- edge(A,A) = edge(b,b).
+A = b.
+Explanation: Both positions require A to be b, so there is no conflict.
+
+9) ?- A = B, B = f.
+A = B, B = f.
+Explanation: A and B are first linked together, then B becomes f, so A is also f.
+
+10) ?- A = B, B = f, A = e.
+false.
+Explanation: A and B become f, and then f = e fails because they are two different constants.

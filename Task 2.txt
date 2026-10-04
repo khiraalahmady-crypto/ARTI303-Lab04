@@ -1,0 +1,35 @@
+Task 2: Family Queries
+Facts file: family.pl  (loaded with: ?- consult('family.pl').)
+
+1) Show the names of all females.
+?- female(X).
+X = sara ;
+X = nora.
+Explanation: X is a variable (a blank). Prolog tries every female fact in order and reports each value of X that makes the query true; ; asks for the next answer.
+
+2) Show whether there is any male.
+?- male(_).
+true.
+Explanation: _ is an anonymous variable: a position that must be filled, but we do not need its value. Prolog finds at least one male fact (male(ali)), so the answer is true.
+
+3) Show the grandparent of Faisal.
+?- parent(GP, P), parent(P, faisal).
+GP = ali,
+P = muhammad.
+Explanation: The shared variable P must be the same person in both goals. First, P is a parent of faisal (muhammad). Then GP is a parent of that same P (ali). So ali is the grandparent of faisal.
+
+4) Show all daughters of Ahmad.
+?- parent(ahmad, D), female(D).
+D = sara ;
+D = nora.
+Explanation: D must be both a child of ahmad AND female. Ahmad's children are sara, nora and khan, but khan is male, so only sara and nora satisfy both goals.
+
+5) Show whether Ahmad and Muhammad have a common parent.
+?- parent(P, ahmad), parent(P, muhammad).
+P = ali.
+Explanation: The shared variable P must be a parent of ahmad and of muhammad at the same time. Only ali satisfies both, so the answer is yes: ali is the common parent.
+
+6) Show whether Khan is the brother of Nora.
+?- parent(P, khan), parent(P, nora), male(khan).
+P = ahmad.
+Explanation: Khan and Nora share the same parent (ahmad), and khan is male, so khan is the brother of nora. The query succeeds.
